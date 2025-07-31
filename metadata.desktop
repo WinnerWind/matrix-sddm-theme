@@ -1,0 +1,16 @@
+[SddmGreeterTheme]
+Name=Matrix
+Description=CMATRIX for your SDDM.
+Author=WinnerWind
+Copyright=(c) 2025, Soham Dash
+License=MIT
+Type=sddm-theme
+Version=1.0
+Website=https://winnerwind.in
+Screenshot=screenshots/hi_IN.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Email=elbowsparse@gmail.com
+Theme-Id=matrix
+Theme-API=2.0
