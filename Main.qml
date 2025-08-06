@@ -1,22 +1,24 @@
-import QtQuick
-import QtQuick.Controls
-import SddmComponents
-import QtQml
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import SddmComponents 2.0
+import "./components"
 
 Item {
     id: root
     property int columnCount: root.width / root.charSize
     property var charset: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%$?!*&"
 
-    property color bgColor: "#000000"
-    property color fgColor: "#ffffff"
-    property color matrixColor: '#00ff00'
+    property color bgColor: "#282828"
+    property color fgColor: "#ebdbb2"
+    property color matrixColor: '#98971a'
     property var fontSize: 24
     property real charSize: 40
     property var headingFontSize: 27
     property var clockSize: 32
     property var clockSubtextSize: 18
-    property var welcomeText: "                             /$$                 /$$
+    property var welcomeText:
+"
+                             /$$                 /$$
                             |__/                | $$
  /$$  /$$  /$$ /$$  /$$  /$$ /$$ /$$$$$$$   /$$$$$$$
 | $$ | $$ | $$| $$ | $$ | $$| $$| $$__  $$ /$$__  $$
@@ -25,8 +27,7 @@ Item {
 |  $$$$$/$$$$/|  $$$$$/$$$$/| $$| $$  | $$|  $$$$$$$
  \\_____/\\___/  \\_____/\\___/ |__/|__/  |__/ \\_______/
 
-
-                                                    "
+"
     property var usernamePlaceholderText: "login"
     property var passwordPlaceholderText: "password"
     property var timeFormat: "HH:mm AP"
@@ -153,7 +154,7 @@ Item {
   Rectangle {
     id: loginBoxBG
     width: root.width * 0.7
-    height: root.height * 0.8
+    height: root.height * 0.85
     color: root.bgColor
     anchors.centerIn: parent
 
@@ -187,6 +188,79 @@ Item {
 
             }
 
+            // Buttons
+            Row {
+              width: parent.width
+              height: parent.height * 0.05
+
+              anchors.horizontalCenter: parent.horizontalCenter
+
+              spacing: 16
+
+              property int buttonCount: 4
+              property real buttonWidth: (width - (buttonCount - 1) * spacing) / buttonCount
+
+              SpButton {
+                id: shutdownButton
+                font.family: mainFont.name
+                font.pixelSize: root.fontSize
+                bgColor: root.bgColor
+                borderColor: root.fgColor
+                textColor: root.fgColor
+
+                height: parent.height
+                width: parent.buttonWidth
+
+                text: "Shut Down"
+
+                onClicked: sddm.powerOff()
+              }
+              SpButton {
+                id: restartButton
+                font.family: mainFont.name
+                font.pixelSize: root.fontSize
+                bgColor: root.bgColor
+                borderColor: root.fgColor
+                textColor: root.fgColor
+
+                height: parent.height
+                width: parent.buttonWidth
+
+                text: "Restart"
+
+                onClicked: sddm.reboot()
+              }
+              SpButton {
+                id: sleepButton
+                font.family: mainFont.name
+                font.pixelSize: root.fontSize
+                bgColor: root.bgColor
+                borderColor: root.fgColor
+                textColor: root.fgColor
+
+                height: parent.height
+                width: parent.buttonWidth
+
+                text: "Sleep"
+
+                onClicked: sddm.suspend()
+              }
+              SpButton {
+                id: hibernateButton
+                font.family: mainFont.name
+                font.pixelSize: root.fontSize
+                bgColor: root.bgColor
+                borderColor: root.fgColor
+                textColor: root.fgColor
+
+                height: parent.height
+                width: parent.buttonWidth
+
+                text: "Hibernate"
+
+                onClicked: sddm.hibernate()
+              }
+            }
             ComboBox {
               color: root.bgColor
               borderColor: root.fgColor
@@ -241,6 +315,7 @@ Item {
               BusyIndicator {
                   running: root.loggingIn
                   visible: root.loggingIn
+
               }
               Text {
                   id: errorElement
