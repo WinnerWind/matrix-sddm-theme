@@ -11,6 +11,7 @@ Item {
     property color bgColor: "#282828"
     property color fgColor: "#ebdbb2"
     property color matrixColor: '#98971a'
+    property color errorColor: '#ff5555'
     property var fontSize: 24
     property real charSize: 40
     property var headingFontSize: 27
@@ -30,6 +31,8 @@ Item {
 "
     property var usernamePlaceholderText: "login"
     property var passwordPlaceholderText: "password"
+    property var loginErrorText: "Error while logging in!"
+    property var loginBusyText: "Attempting to log in... \nIf you see this, check if your security key is plugged in."
     property var timeFormat: "HH:mm AP"
     property var dateFormat: "dddd, dd MMMM\n yyyy"
 
@@ -315,15 +318,15 @@ Item {
               Text {
                   visible: root.loggingIn
 
-                  text: "Attempting to log in... \nIf you see this, check if your security key is plugged in."
+                  text: root.loginBusyText
                   font.pixelSize: root.fontSize
                   font.family: mainFont.name
-                  color: "#ff5555"
+                  color: root.errorColor
               }
               Text {
                   id: errorElement
                   text: ""
-                  color: "#ff5555"
+                  color: root.errorColor
                   font.pixelSize: root.headingFontSize
                   font.family: mainFont.name
 
@@ -347,7 +350,7 @@ Item {
     target: sddm
 
     onLoginFailed: {
-      errorElement.text = "Error! Unable to login!"
+      errorElement.text = root.loginErrorText
       root.loggingIn = false
     }
   }
