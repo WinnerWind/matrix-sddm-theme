@@ -312,10 +312,13 @@ Item {
               width: parent.width
 
 
-              BusyIndicator {
-                  running: root.loggingIn
+              Text {
                   visible: root.loggingIn
 
+                  text: "Attempting to log in... \nIf you see this, check if your security key is plugged in."
+                  font.pixelSize: root.fontSize
+                  font.family: mainFont.name
+                  color: "#ff5555"
               }
               Text {
                   id: errorElement
